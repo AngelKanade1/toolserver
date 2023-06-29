@@ -1,8 +1,8 @@
 import json
 
 techData = {}
-with open("techdata.json", "r", encoding="utf-8") as f:
-    techData = json.load(f)
+# with open("techdata.json", "r", encoding="utf-8") as f:
+#     techData = json.load(f)
 
 upgradeCost = {
     "blue": [(10, 5000), (20, 10000), (40, 20000), (60, 30000), (80, 40000),
@@ -81,4 +81,6 @@ def calcUpgradeCost(rare, techtype, before, after, nowfragment):
     for i in range(before, after):
         need_fragment += upgradeCost[rare][i][0]
         need_coin += upgradeCost[rare][i][1]
-    return (need_fragment * idea, need_coin)
+
+    back_data = "需要" + str(need_fragment * idea) + "钻石，" + str(need_coin) + "金币。"
+    return back_data

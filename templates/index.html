@@ -1,48 +1,97 @@
 <html>
   <head>
     <title>test</title>
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" language="jscript">
+      function getRadioValue(name){
+        var radios = document.getElementsByName(name);        
+        for (var i=0;i<radios.length;i++){
+          if(radios[i].checked){
+            return radios[i].value;
+          }
+        }
+        return null;
+      }
+      window.onload = function () {          
+        var btn = document.getElementById('btn');                  
+        btn.onclick = function () {    
+          var ajax = null;         
+          if(window.XMLHttpRequest){   
+                 ajax = new XMLHttpRequest();     
+           }else{              
+                 ajax = new ActiveXObject('Microsoft.XMLHTTP');               
+           }           
+           var rare = getRadioValue("rare");
+           var techtype = getRadioValue("techtype");
+           var before = getRadioValue("before");
+           var after = getRadioValue("after");
+           var nowfragment = document.getElementById('nowfragment').value;                  
+    
+           var posturl = 'upgradecost';  
+           ajax.open('post',posturl,true);   
+           ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');  
+           var postParam = 'rare='+rare+'&techtype='+techtype+'&before='+before+'&after='+after+'&nowfragment='+nowfragment;               
+           ajax.send(postParam);     
+           ajax.onreadystatechange=function()
+            {
+              if (ajax.readyState==4 && ajax.status==200)
+              {
+                console.log(ajax.responseText)
+                $("#result").html($.parseJSON(ajax.responseText).data)
+              }
+            }    
+      }      
+    }    
+    </script>
   </head>
   <body>
     <p><b>科技稀有度: </b>
-      <input type="radio" name="rare"  id="blue" checked=checked /><label for="blue">蓝</label> 
-      <input type="radio" name="rare" id="purple"/> <label for="purple">紫</label> 
-      <input type="radio" name="rare" id="orange"/> <label for="orange">橙</label>  
+      <input type="radio" name="rare"  id="blue" value="blue" checked=checked /><label for="blue">蓝</label> 
+      <input type="radio" name="rare" id="purple" value="purple"/> <label for="purple">紫</label> 
+      <input type="radio" name="rare" id="orange" value="orange"/> <label for="orange">橙</label>  
       <br/></p>
 
     <p><b>科技类型: </b>
-      <input type="radio" name="techtype"  id="idea" checked=checked /><label for="idea">策略科技</label> 
-      <input type="radio" name="techtype" id="normal"/> <label for="normal">普通科技</label> 
-      <input type="radio" name="techtype" id="lock"/> <label for="lock">解锁科技</label>  
+      <input type="radio" name="techtype"  id="idea" value="idea" checked=checked /><label for="idea">策略科技</label> 
+      <input type="radio" name="techtype" id="normal" value="normal"/> <label for="normal">普通科技</label> 
+      <input type="radio" name="techtype" id="lock" value="lock"/> <label for="lock">解锁科技</label>  
       <br/></p>
 
     <p><b>当前等级: </b>
-      <input type="radio" name="before"  id="1" checked=checked /><label for="1">1</label> 
-      <input type="radio" name="before" id="2"/> <label for="2">2</label> 
-      <input type="radio" name="before" id="3"/> <label for="3">3</label>
-      <input type="radio" name="before" id="4"/> <label for="4">4</label>  
-      <input type="radio" name="before" id="5"/> <label for="5">5</label>
-      <input type="radio" name="before" id="6"/> <label for="6">6</label>
-      <input type="radio" name="before" id="7"/> <label for="7">7</label>
-      <input type="radio" name="before" id="8"/> <label for="8">8</label>
-      <input type="radio" name="before" id="9"/> <label for="9">9</label>
-      <input type="radio" name="before" id="10"/> <label for="10">10</label>
-      <input type="radio" name="before" id="11"/> <label for="11">11</label>
+      <input type="radio" name="before" id="1"  value="1"    checked=checked /><label for="1">1</label> 
+      <input type="radio" name="before" id="2"  value="2" /> <label for="2">2</label> 
+      <input type="radio" name="before" id="3"  value="3" /> <label for="3">3</label>
+      <input type="radio" name="before" id="4"  value="4" /> <label for="4">4</label>  
+      <input type="radio" name="before" id="5"  value="5" /> <label for="5">5</label>
+      <input type="radio" name="before" id="6"  value="6" /> <label for="6">6</label>
+      <input type="radio" name="before" id="7"  value="7" /> <label for="7">7</label>
+      <input type="radio" name="before" id="8"  value="8" /> <label for="8">8</label>
+      <input type="radio" name="before" id="9"  value="9" /> <label for="9">9</label>
+      <input type="radio" name="before" id="10" value="10"/> <label for="10">10</label>
+      <input type="radio" name="before" id="11" value="11"/> <label for="11">11</label>
       <br/></p>
 
     <p><b>目标等级: </b>
-      <input type="radio" name="after"  id="1" checked=checked /><label for="1">1</label> 
-      <input type="radio" name="after" id="2"/> <label for="2">2</label> 
-      <input type="radio" name="after" id="3"/> <label for="3">3</label>
-      <input type="radio" name="after" id="4"/> <label for="4">4</label>  
-      <input type="radio" name="after" id="5"/> <label for="5">5</label>
-      <input type="radio" name="after" id="6"/> <label for="6">6</label>
-      <input type="radio" name="after" id="7"/> <label for="7">7</label>
-      <input type="radio" name="after" id="8"/> <label for="8">8</label>
-      <input type="radio" name="after" id="9"/> <label for="9">9</label>
-      <input type="radio" name="after" id="10"/> <label for="10">10</label>
-      <input type="radio" name="after" id="11"/> <label for="11">11</label>
+      <input type="radio" name="after" id="1"  value="1"   checked=checked /><label for="1">1</label> 
+      <input type="radio" name="after" id="2"  value="2" /> <label for="2">2</label> 
+      <input type="radio" name="after" id="3"  value="3" /> <label for="3">3</label>
+      <input type="radio" name="after" id="4"  value="4" /> <label for="4">4</label>  
+      <input type="radio" name="after" id="5"  value="5" /> <label for="5">5</label>
+      <input type="radio" name="after" id="6"  value="6" /> <label for="6">6</label>
+      <input type="radio" name="after" id="7"  value="7" /> <label for="7">7</label>
+      <input type="radio" name="after" id="8"  value="8" /> <label for="8">8</label>
+      <input type="radio" name="after" id="9"  value="9" /> <label for="9">9</label>
+      <input type="radio" name="after" id="10" value="10"/> <label for="10">10</label>
+      <input type="radio" name="after" id="11" value="11"/> <label for="11">11</label>
       <br/></p>
     
     <p><b>当前碎片: </b><input type="text" name="nowfragment" id="nowfragment"/><br/></p>
+
+    <p><input type="submit" value="提交" id="btn">   </p>
+
+    <p id="result">
+      输出结果
+    </p>
+
   </body>
 </html>
