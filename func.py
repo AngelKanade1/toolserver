@@ -78,6 +78,7 @@ def calcUpgradeCost(rare, techtype, before, after, nowfragment):
 
     need_fragment = -1 * nowfragment
     need_coin = 0
+    print(before, after)
     for i in range(before, after):
         need_fragment += upgradeCost[rare][i][0]
         need_coin += upgradeCost[rare][i][1]
