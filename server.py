@@ -24,7 +24,7 @@ def upgradeCost():
         before = int(request.values.get("before"))
         after = int(request.values.get("after"))
         nowfragment = int(request.values.get("nowfragment"))
-        
+
         back_data["data"] = func.calcUpgradeCost(rare, techtype, before, after, nowfragment)
         return json.dumps(back_data, ensure_ascii=False)
 
