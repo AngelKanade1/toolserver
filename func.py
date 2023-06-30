@@ -25,9 +25,10 @@ def getTechDataByLv(name, lv):
         "inf_atk": tech["inf_atk"][lv],
         "car_atk": tech["car_atk"][lv],
         "armor_atk": tech["armor_atk"][lv],
-        "building_atk": tech["build_atk"][lv],
+        "building_atk": tech["building_atk"][lv],
         "air_atk": tech["air_atk"][lv],
         "boat_atk": tech["boat_atk"][lv],
+        "uboat_atk": tech["uboat_atk"][lv],
         "move": tech["move"],
         "atk_range": tech["atk_range"],
         "eye_range": tech["eye_range"],
@@ -83,5 +84,4 @@ def calcUpgradeCost(rare, techtype, before, after, nowfragment):
         need_fragment += upgradeCost[rare][i][0]
         need_coin += upgradeCost[rare][i][1]
 
-    back_data = "需要" + str(need_fragment * idea) + "钻石，" + str(need_coin) + "金币。"
-    return back_data
+    return (str(need_fragment), str(need_fragment * idea), str(need_coin))

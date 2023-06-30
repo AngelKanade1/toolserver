@@ -36,7 +36,8 @@ def upgradeCost():
             err = 1
 
         if not err:
-            back_data["data"] = func.calcUpgradeCost(rare, techtype, before, after, nowfragment)
+            result = func.calcUpgradeCost(rare, techtype, before, after, nowfragment)
+            back_data["data"] = "需要"+result[0]+"碎片，"+"共计"+result[1]+"钻石，"+result[2]+"金币。"
 
     return json.dumps(back_data, ensure_ascii=False)
 
