@@ -37,10 +37,10 @@ def upgradeCost():
 
         if not err:
             result = func.calcUpgradeCost(rare, techtype, before, after, nowfragment)
-            back_data["data"] = "需要"+result[0]+"碎片，"+"共计"+result[1]+"钻石，"+result[2]+"金币。"
+            back_data["data"] = "需要" + result[0] + "碎片，" + "共计" + result[1] + "钻石，" + result[2] + "金币。"
 
     return json.dumps(back_data, ensure_ascii=False)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0")
