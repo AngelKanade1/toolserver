@@ -17,15 +17,21 @@
         $("[name='rare']").click((e)=>{
           if(e.target.value=='blue'){
             $("[data-show='0']").show()
+            $("[data-show='3']").show()
             $("[data-show='1']").show()
+            $("[data-show='2']").show()
           }
           else if(e.target.value=='purple'){
             $("[data-show='0']").hide()
+            $("[data-show='3']").hide()
             $("[data-show='1']").show()
+            $("[data-show='2']").show()
           }
           else if(e.target.value=='orange'){
             $("[data-show='0']").hide()
+            $("[data-show='3']").hide()
             $("[data-show='1']").hide()
+            $("[data-show='2']").hide()
           }
         }) 
         btn.onclick = function () {    
@@ -95,10 +101,10 @@
       <label><input type="radio" name="after" value="5" /> 5</label>
       <label><input type="radio" name="after" value="6" /> 6</label>
       <label><input type="radio" name="after" value="7" /> 7</label>
-      <label data-show="1"><input type="radio" name="after" value="8" /> 8</label>
-      <label data-show="1"><input type="radio" name="after" value="9" /> 9</label>
-      <label data-show="0"><input  type="radio" name="before" value="10"/> 10</label>
-      <label data-show="0"><input  type="radio" name="before" value="11"/>11</label>
+      <label data-show="2"><input type="radio" name="after" value="8" /> 8</label>
+      <label data-show="2"><input type="radio" name="after" value="9" /> 9</label>
+      <label data-show="3"><input  type="radio" name="after" value="10"/> 10</label>
+      <label data-show="3"><input  type="radio" name="after" value="11"/>11</label>
       <br/></p>
     
     <p><b>当前碎片: </b><input type="text" name="nowfragment" id="nowfragment"/><br/></p>
