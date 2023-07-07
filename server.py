@@ -15,6 +15,22 @@ def index():
     return render_template("index.html")
 
 
+@app.route('/costcalc')
+def costcalc():
+    return render_template("costcalc.html")
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    with open('techdata.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    if request.method == 'POST':
+        units = request.form['unit']
+        return render_template('search.html', data=data, units=units)
+
+    return render_template('search.html', data=data)
+
+
 @app.route('/upgradecost', methods=['GET', 'POST'])
 def upgradeCost():
     back_data = {}
