@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unit Information</title>
+    <style>
+        /* 表格样式 */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        <label for="name">选择一个单位：</label>
+        <select id="name" name="unit">
+            {% for key in data %}
+                <option value="{{ key }}">{{ key }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">搜索</button>
+    </form>
+    {% if unit %}
+        <table>
+            <thead>
+                <tr>
+                    <th>名字</th>
+                    <th>稀有度</th>
+                    <th>血量</th>
+                    <th>步兵攻击</th>
+                    <th>车辆攻击</th>
+                    <th>装甲攻击</th>
+                    <th>建筑攻击</th>
+                    <th>舰船攻击</th>
+                    <th>对空攻击</th>
+                    <th>潜艇攻击</th>
+                    <th>移动速度</th>
+                    <th>攻击范围</th>
+                    <th>视野范围</th>
+                    <th>防御</th>
+                    <th>食物</th>
+                    <th>燃油</th>
+                    <th>弹药</th>
+                    <th>类型</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ data[unit]['name'] }}</td>
+                    <td>{{ data[unit]['rare'] }}</td>
+                    <td>
+                        <ul>
+                            {% for item in data[unit]['hp'] %}
+                                <li>{{ loop.index }}: {{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    {% for key in ['inf_atk', 'car_atk', 'armor_atk',
+                                   'building_atk', 'boat_atk', 'air_atk',
+                                   'uboot_atk'] %}
+                        {% if key in data[unit] %}
+                            <td>
+                                <ul>
+                                    {% for item in data[unit][key] %}
+                                        <li>{{ loop.index }}: {{ item }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        {% else %}
+                            <td>N/A</td>
+                        {% endif %}
+                    {% endfor %}
+                    <td>{{ data[unit]['move'] }}</td>
+                    <td>{{ data[unit]['atk_range'] }}</td>
+                    <td>{{ data[unit]['eye_range'] }}</td>
+                    <td>{{ data[unit]['def'] }}</td>
+                    <td>{{ data[unit]['food'] }}</td>
+                    <td>{{ data[unit]['fuel'] }}</td>
+                    <td>{{ data[unit]['ammo'] }}</td>
+                    <td>{{ data[unit]['type'] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>
