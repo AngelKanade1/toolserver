@@ -58,5 +58,60 @@ def upgradeCost():
     return json.dumps(back_data, ensure_ascii=False)
 
 
+@app.route("/battlecalc")
+def battlecalc():
+    with open("generaldata.json", 'r', encoding='utf-8') as f:
+        generaldata = json.load(f)
+
+    with open('techdata.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    return render_template("battlecalc.html", generaldata=generaldata, data=data)
+
+
+lv_rule = {
+    "red": 7,
+    "orange": 7,
+    "purple": 9,
+    "blue": 11
+}
+
+
+@app.route("/datacompare", methods=['GET', 'POST'])
+def datacompare():
+    backdata = {}
+    if len(request.get_data()) != 0:
+        unit1 = request.form['unit1']
+        unit2 = request.form['unit2']
+        lv1 = int(request.form['tech1lv'])
+        lv2 = int(request.form['tech2lv'])
+        if lv_rule[func.getTechRare(unit1)] < lv1 or lv_rule[func.getTechRare(unit2)] < lv2:
+            return "等级数据异常"
+        general1 = request.form.getlist('general1')
+        general2 = request.form.getlist('general2')
+        atkbuff1 = int(request.form['atkbuff1'])
+        defbuff1 = int(request.form['defbuff1'])
+        atkbuff2 = int(request.form['atkbuff2'])
+        defbuff2 = int(request.form['defbuff2'])
+        backdata["data1"] = func.calcTechStatus(unit1, lv1, general1, atkbuff1, defbuff1)
+        backdata["data2"] = func.calcTechStatus(unit2, lv2, general2, atkbuff2, defbuff2)
+
+    return backdata
+
+
+@app.route("/killcalc", methods=['GET', 'POST'])
+def killcalc():
+    if len(request.get_data()) != 0:
+        print(request.values)
+    return ""
+
+
+@app.route("/battlesimulate", methods=['GET', 'POST'])
+def battlesimulate():
+    if len(request.get_data()) != 0:
+        print(request.values)
+    return ""
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0")
