@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>战斗数据计算器</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <form id="mainForm">
+        <label for="name">科技1单位</label>
+        <select id="name" name="unit1">
+            {% for key in data %}
+                <option value="{{ key }}">{{ key }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="tech1lv">科技1等级:</label>
+        <select id="tech1lv" name="tech1lv">
+            {% for i in range(1, 12) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="general1">军官1:</label>
+        {% for key in generaldata %}
+            <input type="checkbox" name="general1" value="{{ key }}"> {{ key }}
+        {% endfor %}
+        <br>
+
+        <!-- 下拉选择框1-6 -->
+        <label for="atkbuff1">全军等级：</label>
+        <select id="atkbuff1" name="atkbuff1">
+            {% for i in range(0, 8) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="defbuff1">坚守等级：</label>
+        <select id="defbuff1" name="defbuff1">
+            {% for i in range(0, 10) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="healbuff1">救死等级：</label>
+        <select id="healbuff1" name="healbuff1">
+            {% for i in range(0, 8) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="name">科技2单位</label>
+        <select id="name" name="unit2">
+            {% for key in data %}
+                <option value="{{ key }}">{{ key }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="tech2lv">科技2等级:</label>
+        <select id="tech2lv" name="tech2lv">
+            {% for i in range(1, 12) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="general2">军官2:</label>
+        {% for key in generaldata %}
+            <input type="checkbox" name="general2" value="{{ key }}"> {{ key }}
+        {% endfor %}
+        <br>
+
+        <!-- 下拉选择框7-12 -->
+        <label for="atkbuff2">全军等级：</label>
+        <select id="atkbuff2" name="atkbuff2">
+            {% for i in range(0, 8) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="defbuff2">坚守等级：</label>
+        <select id="defbuff2" name="defbuff2">
+            {% for i in range(0, 10) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="healbuff2">救死等级：</label>
+        <select id="healbuff2" name="healbuff2">
+            {% for i in range(0, 8) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="num1">科技1数量:</label>
+        <input type="number" id="num1" name="num1">
+        <br>
+
+        <label for="num2">科技2数量:</label>
+        <input type="number" id="num2" name="num2">
+        <br>
+
+        <button type="button" id="datacompare">数据对比</button>
+        <button type="button" id="killcalc">击杀计算</button>
+        <button type="button" id="battlecalc">模拟战斗</button>
+    </form>
+
+    <script>
+        function sendRequest(route) {
+            $.ajax({
+                type: "POST",
+                url: route,
+                data: $("#mainForm").serialize(),
+                success: function(response){
+                    console.log(response);
+                },
+                error: function(error){
+                    console.error(error);
+                }
+            });
+        }
+
+        $("#datacompare").click(function() {
+            sendRequest("/datacompare");
+        });
+
+        $("#killcalc").click(function() {
+            sendRequest("/killcalc");
+        });
+
+        $("#battlesimulate").click(function() {
+            sendRequest("/battlesimulate");
+        });
+    </script>
+</body>
+</html>
