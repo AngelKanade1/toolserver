@@ -132,6 +132,7 @@
         <button type="button" id="battlecalc">模拟战斗</button>
     </form>
     <table id="result"></table>
+    <label id="result1"></label>
 
     <script>
         function sendRequest(route) {
@@ -169,6 +170,10 @@
                         }
                         tableHtml += "</tbody></table>";
                         $('#result').html(tableHtml);
+                    }
+                    if (route == "/killcalc"){
+                        labelElement = document.getElementById("result1");
+                        labelElement.textContent = response;
                     }
                 },
                 error: function(error){
