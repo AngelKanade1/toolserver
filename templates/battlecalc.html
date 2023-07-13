@@ -28,7 +28,7 @@
         <label for="name">科技1单位</label>
         <select id="name" name="unit1">
             {% for key in data %}
-                <option value="{{ key }}">{{ key }}</option>
+                <option style="color: {{ data[key]['rare'] }};" value="{{ key }}">{{ key }}</option>
             {% endfor %}
         </select>
         <br>
@@ -75,7 +75,7 @@
         <label for="name">科技2单位</label>
         <select id="name" name="unit2">
             {% for key in data %}
-                <option value="{{ key }}">{{ key }}</option>
+                <option style="color: {{ data[key]['rare'] }};" value="{{ key }}">{{ key }}</option>
             {% endfor %}
         </select>
         <br>

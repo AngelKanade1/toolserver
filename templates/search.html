@@ -30,7 +30,7 @@
             {% endif %}
             {% for key in data %}
                 {%set units = units + key + "," %}
-                <option value="{{ units }}">{{ key }}</option>
+                <option style="color: {{ data[key]['rare'] }};" value="{{ units }}">{{ key }}</option>
             {% endfor %}
         </select>
         <button type="submit">搜索</button>
