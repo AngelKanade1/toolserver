@@ -120,11 +120,11 @@
         <br>
 
         <label for="num1">科技1数量:</label>
-        <input type="number" id="num1" name="num1">
+        <input type="number" id="num1" name="num1" value=1>
         <br>
 
         <label for="num2">科技2数量:</label>
-        <input type="number" id="num2" name="num2">
+        <input type="number" id="num2" name="num2" value=1>
         <br>
 
         <button type="button" id="datacompare">数据对比</button>
@@ -142,32 +142,34 @@
                 success: function(response){
                     console.log(response);
                     var data = response;
-                    var tableHtml = "<table><thead><tr><th>名字</th><th>稀有度</th><th>血量</th><th>对步兵攻击</th><th>对车辆攻击</th><th>对装甲攻击</th><th>对建筑攻击</th><th>对空攻击</th><th>对船攻击</th><th>对潜艇攻击</th><th>移动速度</th><th>攻击范围</th><th>视野范围</th><th>防御</th><th>食物</th><th>燃油</th><th>弹药</th><th>类型</th></tr></thead><tbody>";
-                    for (var key in data) {
-                        var item = data[key];
-                        tableHtml += "<tr>";
-                        tableHtml += "<td>" + item.name + "</td>";
-                        tableHtml += "<td>" + item.rare + "</td>";
-                        tableHtml += "<td>" + item.hp + "</td>";
-                        tableHtml += "<td>" + item.inf_atk + "</td>";
-                        tableHtml += "<td>" + item.car_atk + "</td>";
-                        tableHtml += "<td>" + item.armor_atk + "</td>";
-                        tableHtml += "<td>" + item.building_atk + "</td>";
-                        tableHtml += "<td>" + item.air_atk + "</td>";
-                        tableHtml += "<td>" + item.boat_atk + "</td>";
-                        tableHtml += "<td>" + item.uboat_atk + "</td>";
-                        tableHtml += "<td>" + item.move + "</td>";
-                        tableHtml += "<td>" + item.atk_range + "</td>";
-                        tableHtml += "<td>" + item.eye_range + "</td>";
-                        tableHtml += "<td>" + item.def + "</td>";
-                        tableHtml += "<td>" + item.food + "</td>";
-                        tableHtml += "<td>" + item.fuel + "</td>";
-                        tableHtml += "<td>" + item.ammo + "</td>";
-                        tableHtml += "<td>" + item.type + "</td>";
-                        tableHtml += "</tr>";
+                    if (route == "/datacompare"){
+                        var tableHtml = "<table><thead><tr><th>名字</th><th>稀有度</th><th>血量</th><th>对步兵攻击</th><th>对车辆攻击</th><th>对装甲攻击</th><th>对建筑攻击</th><th>对空攻击</th><th>对船攻击</th><th>对潜艇攻击</th><th>移动速度</th><th>攻击范围</th><th>视野范围</th><th>防御</th><th>食物</th><th>燃油</th><th>弹药</th><th>类型</th></tr></thead><tbody>";
+                        for (var key in data) {
+                            var item = data[key];
+                            tableHtml += "<tr>";
+                            tableHtml += "<td>" + item.name + "</td>";
+                            tableHtml += "<td>" + item.rare + "</td>";
+                            tableHtml += "<td>" + item.hp + "</td>";
+                            tableHtml += "<td>" + item.inf_atk + "</td>";
+                            tableHtml += "<td>" + item.car_atk + "</td>";
+                            tableHtml += "<td>" + item.armor_atk + "</td>";
+                            tableHtml += "<td>" + item.building_atk + "</td>";
+                            tableHtml += "<td>" + item.air_atk + "</td>";
+                            tableHtml += "<td>" + item.boat_atk + "</td>";
+                            tableHtml += "<td>" + item.uboat_atk + "</td>";
+                            tableHtml += "<td>" + item.move + "</td>";
+                            tableHtml += "<td>" + item.atk_range + "</td>";
+                            tableHtml += "<td>" + item.eye_range + "</td>";
+                            tableHtml += "<td>" + item.def + "</td>";
+                            tableHtml += "<td>" + item.food + "</td>";
+                            tableHtml += "<td>" + item.fuel + "</td>";
+                            tableHtml += "<td>" + item.ammo + "</td>";
+                            tableHtml += "<td>" + item.type + "</td>";
+                            tableHtml += "</tr>";
+                        }
+                        tableHtml += "</tbody></table>";
+                        $('#result').html(tableHtml);
                     }
-                    tableHtml += "</tbody></table>";
-                    $('#result').html(tableHtml);
                 },
                 error: function(error){
                     console.error(error);

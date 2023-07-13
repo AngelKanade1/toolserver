@@ -3,9 +3,6 @@ from decimal import Decimal
 
 with open("techdata.json", "r", encoding="utf-8") as f:
     techData = json.load(f)
-    
-with open("generaldata.json", "r", encoding="utf-8") as f:
-    generalData = json.load(f)
 
 with open("generaldata.json", "r", encoding="utf-8") as f:
     generalData = json.load(f)
@@ -113,9 +110,9 @@ def calcTechStatus(name, lv, general, atkbuff, defbuff):
             result_tech_data[key] = tech_data[key]
             continue
         if buff_data.get(key, 0) != 0:
-            result_tech_data[key] = Decimal(str(tech_data[key])) + Decimal(str(buff_data.get(key)))
+            result_tech_data[key] = float(Decimal(str(tech_data[key])) + Decimal(str(buff_data.get(key))))
         if general_data.get(key, 0) != 0:
-            result_tech_data[key] = Decimal(str(tech_data[key])) + Decimal(str(general_data.get(key)))
+            result_tech_data[key] = float(Decimal(str(tech_data[key])) + Decimal(str(general_data.get(key))))
 
     return result_tech_data
 
@@ -124,16 +121,24 @@ def typeTransATK(typestr):
     return typestr + "_atk"
 
 
-def calcDamage(tech, num, buff, etype):
+def calcDamage(tech, num, etype):
     etype = typeTransATK(etype)
-    atk = tech[etype] + getTechDataByLv(tech["name"], 1)[etype] * buff
+    atk = tech[etype]
     damage = atk * num / 500 * 0.825 / 0.099
     return damage
 
 
-def calcExactDamage(tech, num, buff, etech):
-    damage = calcDamage(tech, num, buff, etech["type"])
-    return damage * 1000 / etech["def"]
+def calcExactDamage(tech, num, etech):
+    damage = calcDamage(tech, num, etech["type"])
+    return damage * 1000 / (etech["def"] + 1000)
+
+
+def calcKillNum(name, lv, general, num, ename, elv, egeneral, atkbuff, defbuff):
+    tech1 = calcTechStatus(name, lv, general, atkbuff, 0)
+    tech2 = calcTechStatus(ename, elv, egeneral, 0, defbuff)
+    exact_damage = calcExactDamage(tech1, num, tech2)
+    num = exact_damage / tech2["hp"]
+    return num
 
 
 def calcUpgradeCost(rare, techtype, before, after, nowfragment):
@@ -158,7 +163,6 @@ def calcUpgradeCost(rare, techtype, before, after, nowfragment):
 
     need_fragment = -1 * nowfragment
     need_coin = 0
-    print(before, after)
     for i in range(before, after):
         need_fragment += upgradeCost[rare][i][0]
         need_coin += upgradeCost[rare][i][1]

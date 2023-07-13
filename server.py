@@ -101,15 +101,33 @@ def datacompare():
 
 @app.route("/killcalc", methods=['GET', 'POST'])
 def killcalc():
+    backdata = {}
     if len(request.get_data()) != 0:
-        print(request.values)
-    return ""
+        unit1 = request.form['unit1']
+        unit2 = request.form['unit2']
+        lv1 = int(request.form['tech1lv'])
+        lv2 = int(request.form['tech2lv'])
+        if lv_rule[func.getTechRare(unit1)] < lv1 or lv_rule[func.getTechRare(unit2)] < lv2:
+            return "等级数据异常"
+        general1 = request.form.getlist('general1')
+        general2 = request.form.getlist('general2')
+        atkbuff1 = int(request.form['atkbuff1'])
+        defbuff1 = int(request.form['defbuff1'])
+        atkbuff2 = int(request.form['atkbuff2'])
+        defbuff2 = int(request.form['defbuff2'])
+        num1 = int(request.form["num1"])
+        num2 = int(request.form["num2"])
+
+        killnum1 = str(round(func.calcKillNum(unit1, lv1, general1, num1, unit2, lv2, general2, atkbuff1, defbuff2), 2))
+        killnum2 = str(round(func.calcKillNum(unit2, lv2, general2, num2, unit1, lv1, general1, atkbuff2, defbuff1), 2))
+        backdata = "%s一回合可击杀%s个%s,%s一回合可击杀%s个%s" % (unit1, killnum1, unit2, unit2, killnum2, unit1)
+    return backdata
 
 
 @app.route("/battlesimulate", methods=['GET', 'POST'])
 def battlesimulate():
     if len(request.get_data()) != 0:
-        print(request.values)
+        pass
     return ""
 
 
