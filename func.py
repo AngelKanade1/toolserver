@@ -3,6 +3,9 @@ from decimal import Decimal
 
 with open("techdata.json", "r", encoding="utf-8") as f:
     techData = json.load(f)
+    
+with open("generaldata.json", "r", encoding="utf-8") as f:
+    generalData = json.load(f)
 
 with open("generaldata.json", "r", encoding="utf-8") as f:
     generalData = json.load(f)
