@@ -62,8 +62,8 @@ def calcBuffData(name, atkbuff, defbuff):
         atkbuff = 0.3 + 0.05 * (atkbuff - 1)
     if defbuff != 0:
         defbuff = 0.3 + 0.04 * (defbuff - 1)
-    for key in techData.keys():
-        if "atk" in key:
+    for key in tech_data.keys():
+        if "_atk" in key:
             if tech_data[key] * atkbuff == 0:
                 continue
             buff_data[key] = tech_data[key] * atkbuff
@@ -144,6 +144,21 @@ def calcKillNum(name, lv, general, num, ename, elv, egeneral, atkbuff, defbuff):
     exact_damage = calcExactDamage(tech1, num, tech2)
     num = exact_damage / tech2["hp"]
     return num
+
+
+def battleSimulate(unit1, unit2, lv1, lv2, general1, general2, atkbuff1, atkbuff2, defbuff1, defbuff2, num1, num2,
+                   battlelog, round):
+    kill_num1 = int(calcKillNum(unit1, lv1, general1, num1, unit2, lv2, general2, atkbuff1, defbuff2))
+    kill_num2 = int(calcKillNum(unit2, lv2, general2, num2, unit1, lv1, general1, atkbuff2, defbuff1))
+    round += 1
+    battlelog += "第%s回合,%s击杀了%s个%s,%s击杀了%s个%s,%s剩余%s,%s剩余%s<br />" % (
+        str(round), unit1, str(kill_num1), unit2, unit2, str(kill_num2), unit1, unit1, str(num1 - kill_num2), unit2,
+        str(num2 - kill_num1))
+    if num1 - kill_num2 <= 0 or num2 - kill_num1 <= 0 or round == 50:
+        return battlelog
+
+    return battleSimulate(unit1, unit2, lv1, lv2, general1, general2, atkbuff1, atkbuff2, defbuff1, defbuff2,
+                          num1 - kill_num2, num2 - kill_num1, battlelog, round)
 
 
 def calcUpgradeCost(rare, techtype, before, after, nowfragment):

@@ -64,14 +64,6 @@
         </select>
         <br>
 
-        <label for="healbuff1">救死等级：</label>
-        <select id="healbuff1" name="healbuff1">
-            {% for i in range(0, 8) %}
-                <option value="{{ i }}">{{ i }}</option>
-            {% endfor %}
-        </select>
-        <br>
-
         <label for="name">科技2单位</label>
         <select id="name" name="unit2">
             {% for key in data %}
@@ -111,14 +103,6 @@
         </select>
         <br>
 
-        <label for="healbuff2">救死等级：</label>
-        <select id="healbuff2" name="healbuff2">
-            {% for i in range(0, 8) %}
-                <option value="{{ i }}">{{ i }}</option>
-            {% endfor %}
-        </select>
-        <br>
-
         <label for="num1">科技1数量:</label>
         <input type="number" id="num1" name="num1" value=1>
         <br>
@@ -129,7 +113,7 @@
 
         <button type="button" id="datacompare">数据对比</button>
         <button type="button" id="killcalc">击杀计算</button>
-        <button type="button" id="battlecalc">模拟战斗</button>
+        <button type="button" id="battlesimulate">模拟战斗</button>
     </form>
     <table id="result"></table>
     <label id="result1"></label>
@@ -174,6 +158,10 @@
                     if (route == "/killcalc"){
                         labelElement = document.getElementById("result1");
                         labelElement.textContent = response;
+                    }
+                    if (route == "/battlesimulate"){
+                        labelElement = document.getElementById("result1");
+                        labelElement.innerHTML = response;
                     }
                 },
                 error: function(error){
