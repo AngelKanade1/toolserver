@@ -81,7 +81,7 @@ def calcGeneralBuffData(name, generals):
     for general in generals:
         for buffkey in generalData[general]:
             buff = generalData[general][buffkey]
-            if name not in buff["type"]:
+            if tech_data["name"] not in buff["type"]:
                 continue
             for key in buff.keys():
                 if buff[key] == 0 or key == "type":
