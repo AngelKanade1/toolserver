@@ -172,4 +172,4 @@ def calcUpgradeCost(rare, techtype, before, after, nowfragment):
         need_fragment += upgradeCost[rare][i][0]
         need_coin += upgradeCost[rare][i][1]
 
-    return (str(need_fragment), str(need_fragment * idea), str(need_coin))
+    return str(need_fragment), str(need_fragment * idea), str(need_coin)
