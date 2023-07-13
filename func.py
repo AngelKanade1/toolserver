@@ -83,13 +83,18 @@ def calcGeneralBuffData(name, generals):
             buff = generalData[general][buffkey]
             if tech_data["name"] not in buff["type"]:
                 continue
+            print(buff)
             for key in buff.keys():
                 if buff[key] == 0 or key == "type":
                     continue
                 if "%" in buff[key]:
-                    buff_data["mult"][key] = int(buff[key][:buff[key].index("%")]) / 100
+                    if not buff_data["mult"].get(key):
+                        buff_data["mult"][key] = 0
+                    buff_data["mult"][key] += int(buff[key][:buff[key].index("%")]) / 100
                 else:
-                    buff_data["add"][key] = buff[key]
+                    if not buff_data["add"].get(key):
+                        buff_data["add"][key] = 0
+                    buff_data["add"][key] += buff[key]
 
     for key in buff_data["mult"].keys():
         add_buff_data[key] = tech_data[key] * buff_data["mult"][key]
