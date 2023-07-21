@@ -87,7 +87,7 @@ def calcGeneralBuffData(name, generals):
             for key in buff.keys():
                 if buff[key] == 0 or key == "type":
                     continue
-                if "%" in buff[key]:
+                if "%" in str(buff[key]):
                     if not buff_data["mult"].get(key):
                         buff_data["mult"][key] = 0
                     buff_data["mult"][key] += int(buff[key][:buff[key].index("%")]) / 100
