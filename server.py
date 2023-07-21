@@ -149,5 +149,11 @@ def battlesimulate():
     return backdata
 
 
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return "Fuck you and fuck your mother"
+
+
 if __name__ == '__main__':
     app.run()
