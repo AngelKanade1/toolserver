@@ -111,13 +111,13 @@ def calcTechStatus(name, lv, general, atkbuff, defbuff):
     buff_data = calcBuffData(name, atkbuff, defbuff)
     general_data = calcGeneralBuffData(name, general)
     for key in tech_data.keys():
+        result_tech_data[key] = tech_data[key]
         if buff_data.get(key, 0) == 0 and general_data.get(key, 0) == 0:
-            result_tech_data[key] = tech_data[key]
             continue
         if buff_data.get(key, 0) != 0:
-            result_tech_data[key] = float(Decimal(str(tech_data[key])) + Decimal(str(buff_data.get(key))))
+            result_tech_data[key] = float(Decimal(str(result_tech_data[key])) + Decimal(str(buff_data.get(key))))
         if general_data.get(key, 0) != 0:
-            result_tech_data[key] = float(Decimal(str(tech_data[key])) + Decimal(str(general_data.get(key))))
+            result_tech_data[key] = float(Decimal(str(result_tech_data[key])) + Decimal(str(general_data.get(key))))
 
     return result_tech_data
 
