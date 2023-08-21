@@ -137,18 +137,28 @@ def calcExactDamage(tech, num, etech):
     return damage * 1000 / (etech["def"] + 1000)
 
 
-def calcKillNum(name, lv, general, num, ename, elv, egeneral, atkbuff, defbuff):
+def calcKillNum(name, lv, general, num, ename, elv, egeneral, enum, ehp, atkbuff, defbuff):
     tech1 = calcTechStatus(name, lv, general, atkbuff, 0)
     tech2 = calcTechStatus(ename, elv, egeneral, 0, defbuff)
     exact_damage = calcExactDamage(tech1, num, tech2)
-    num = exact_damage / tech2["hp"]
-    return num
+    if ehp == 0:
+        ehp = tech2["hp"] * enum - exact_damage
+    else:
+        ehp -= exact_damage
+    knum = ehp / tech2["hp"]
+    rest_num = 0
+    if knum > int(knum):
+        rest_num = int(knum) + 1
+    else:
+        rest_num = int(knum)
+    kill_num = enum - rest_num
+    return kill_num, ehp
 
 
 def battleSimulate(unit1, unit2, lv1, lv2, general1, general2, atkbuff1, atkbuff2, defbuff1, defbuff2, num1, num2,
-                   battlelog, round):
-    kill_num1 = int(calcKillNum(unit1, lv1, general1, num1, unit2, lv2, general2, atkbuff1, defbuff2))
-    kill_num2 = int(calcKillNum(unit2, lv2, general2, num2, unit1, lv1, general1, atkbuff2, defbuff1))
+                   hp1, hp2, battlelog, round):
+    kill_num1, hp2 = calcKillNum(unit1, lv1, general1, num1, unit2, lv2, general2, num2, hp2, atkbuff1, defbuff2)
+    kill_num2, hp1 = calcKillNum(unit2, lv2, general2, num2, unit1, lv1, general1, num1, hp1, atkbuff2, defbuff1)
     round += 1
     battlelog += "第%s回合,%s击杀了%s个%s,%s击杀了%s个%s,%s剩余%s,%s剩余%s<br />" % (
         str(round), unit1, str(kill_num1), unit2, unit2, str(kill_num2), unit1, unit1, str(num1 - kill_num2), unit2,
@@ -157,7 +167,7 @@ def battleSimulate(unit1, unit2, lv1, lv2, general1, general2, atkbuff1, atkbuff
         return battlelog
 
     return battleSimulate(unit1, unit2, lv1, lv2, general1, general2, atkbuff1, atkbuff2, defbuff1, defbuff2,
-                          num1 - kill_num2, num2 - kill_num1, battlelog, round)
+                          num1 - kill_num2, num2 - kill_num1, hp1, hp2, battlelog, round)
 
 
 def calcUpgradeCost(rare, techtype, before, after, nowfragment):

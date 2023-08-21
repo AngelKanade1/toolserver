@@ -143,7 +143,7 @@ def battlesimulate():
         num1 = int(request.form["num1"])
         num2 = int(request.form["num2"])
         battle_log = func.battleSimulate(unit1, unit2, lv1, lv2, general1, general2, atkbuff1, atkbuff2, defbuff1,
-                                         defbuff2, num1, num2, "", 0)
+                                         defbuff2, num1, num2, 0, 0, "", 0)
         backdata = battle_log
     return backdata
 
