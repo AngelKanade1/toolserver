@@ -156,4 +156,8 @@ def catch_all(path):
 
 
 if __name__ == '__main__':
-    app.run()
+    with open("config.json", "r", encoding="utf-8") as c:
+        config = json.load(c)
+        h = config["host"]
+        p = config["port"]
+    app.run(host=h, port=p)
