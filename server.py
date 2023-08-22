@@ -118,8 +118,8 @@ def killcalc():
         num1 = int(request.form["num1"])
         num2 = int(request.form["num2"])
 
-        killnum1 = str(round(func.calcKillNum(unit1, lv1, general1, num1, unit2, lv2, general2, atkbuff1, defbuff2), 2))
-        killnum2 = str(round(func.calcKillNum(unit2, lv2, general2, num2, unit1, lv1, general1, atkbuff2, defbuff1), 2))
+        killnum1 = str(round(func.calcKillNum(unit1, lv1, general1, num1, unit2, lv2, general2, num2, 0, atkbuff1, defbuff2)[0], 2))
+        killnum2 = str(round(func.calcKillNum(unit2, lv2, general2, num2, unit1, lv1, general1, num1, 0, atkbuff2, defbuff1)[0], 2))
         backdata = "%s一回合可击杀%s个%s,%s一回合可击杀%s个%s" % (unit1, killnum1, unit2, unit2, killnum2, unit1)
     return backdata
 
