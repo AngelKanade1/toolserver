@@ -141,16 +141,23 @@ def calcKillNum(name, lv, general, num, ename, elv, egeneral, enum, ehp, atkbuff
     tech1 = calcTechStatus(name, lv, general, atkbuff, 0)
     tech2 = calcTechStatus(ename, elv, egeneral, 0, defbuff)
     exact_damage = calcExactDamage(tech1, num, tech2) * 0.01 * (100 - deatk)
+
+    if tech1 == "白鱼级潜艇":
+        exact_damage = exact_damage * 15
+
     if ehp == 0:
         ehp = tech2["hp"] * enum - exact_damage
     else:
         ehp -= exact_damage
+
     knum = ehp / tech2["hp"]
     rest_num = 0
+
     if knum > int(knum):
         rest_num = int(knum) + 1
     else:
         rest_num = int(knum)
+
     kill_num = enum - rest_num
     return kill_num, ehp
 
