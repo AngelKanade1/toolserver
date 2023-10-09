@@ -167,7 +167,7 @@ def battleSimulate(unit1, unit2, lv1, lv2, general1, general2, atkbuff1, atkbuff
         return battlelog
 
     return battleSimulate(unit1, unit2, lv1, lv2, general1, general2, atkbuff1, atkbuff2, defbuff1, defbuff2,
-                          num1 - kill_num2, num2 - kill_num1, hp1, hp2, battlelog, round)
+                          num1 - kill_num2, num2 - kill_num1, hp1, hp2, deatk1, deatk2, battlelog, round)
 
 
 def calcUpgradeCost(rare, techtype, before, after, nowfragment):
