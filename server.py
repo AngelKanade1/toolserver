@@ -1,8 +1,12 @@
 from flask import Flask, request, render_template
 import func
 import json
+from collections import defaultdict
+import datetime
+
 
 app = Flask(__name__)
+access_counts = defaultdict(int)
 
 
 @app.route('/test')
@@ -12,7 +16,22 @@ def hello_name():
 
 @app.route('/')
 def index():
+    client_ip = request.remote_addr
+    today = datetime.date.today().strftime("%Y-%m-%d")
+
+    if today in access_counts:
+        access_counts[today].add(client_ip)
+    else:
+        access_counts[today] = {client_ip}
     return render_template("index.html")
+
+
+@app.route('/checktime')
+def get_access_count():
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    count = len(access_counts[today])
+
+    return f'今天被不同ip访问了{count}次.'
 
 
 @app.route('/costcalc')
