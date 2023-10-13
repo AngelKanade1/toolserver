@@ -2,11 +2,17 @@
 <html>
 <head>
 	<title>Kanade</title>
+	<script>
+        function showDialog(content) {
+            alert(content);
+        }
+    </script>
 </head>
 <body>
 	<h1>二战风云计算小助手</h1>
 	<button onclick="window.location.href='/costcalc'">升级花费计算器</button>
 	<button onclick="window.location.href='/search'">兵种查询界面</button>
 	<button onclick="window.location.href='/battlecalc'">战斗数据计算器</button>
+	<button onclick="showDialog('{{ content|safe }}')">更新日志</button>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_file
 import func
 import json
 from collections import defaultdict
@@ -16,6 +16,7 @@ def hello_name():
 
 @app.route('/')
 def index():
+    file_path = 'updatelog.txt'
     client_ip = request.remote_addr
     today = datetime.date.today().strftime("%Y-%m-%d")
 
@@ -23,17 +24,23 @@ def index():
         access_counts[today].add(client_ip)
     else:
         access_counts[today] = {client_ip}
-    return render_template("index.html")
+
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+        return render_template("index.html", content=content)
+    except Exception as e:
+        return str(e)
 
 
 @app.route('/checktime')
 def get_access_count():
     today = datetime.date.today().strftime("%Y-%m-%d")
     count = len(access_counts[today])
-    
+
     response = f'今天被 {count} 个ip访问.\n\n'
     response += '前面几天:\n'
-    
+
     for day, ips in access_counts.items():
         date = datetime.datetime.strptime(day, "%Y-%m-%d").date()
         days_ago = (datetime.date.today() - date).days
