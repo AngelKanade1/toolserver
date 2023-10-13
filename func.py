@@ -125,15 +125,18 @@ def typeTransATK(typestr):
     return typestr + "_atk"
 
 
-def calcDamage(tech, num, etype):
+def calcDamage(tech, num, etech):
+    etype = etech["type"]
     etype = typeTransATK(etype)
     atk = tech[etype]
+    if tech["name"] == "虎式重型坦克(沙漠)" and "M40" in etech["name"]:
+        atk += 400
     damage = atk * num / 500 * 0.825 / 0.099
     return damage
 
 
 def calcExactDamage(tech, num, etech):
-    damage = calcDamage(tech, num, etech["type"])
+    damage = calcDamage(tech, num, etech)
     return damage * 1000 / (etech["def"] + 1000)
 
 
