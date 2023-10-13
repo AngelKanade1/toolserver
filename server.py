@@ -30,8 +30,16 @@ def index():
 def get_access_count():
     today = datetime.date.today().strftime("%Y-%m-%d")
     count = len(access_counts[today])
+    
+    response = f'今天被 {count} 个ip访问.\n\n'
+    response += '前面几天:\n'
+    
+    for day, ips in access_counts.items():
+        date = datetime.datetime.strptime(day, "%Y-%m-%d").date()
+        days_ago = (datetime.date.today() - date).days
+        response += f'{days_ago} 天前: {len(ips)} 个ip访问\n'
 
-    return f'今天被不同ip访问了{count}次.'
+    return response
 
 
 @app.route('/costcalc')
