@@ -170,7 +170,7 @@ def battleSimulate(unit1, unit2, lv1, lv2, general1, general2, atkbuff1, atkbuff
     battlelog += "第%s回合,%s击杀了%s个%s,%s击杀了%s个%s,%s剩余%s,%s剩余%s<br />" % (
         str(round), unit1, str(kill_num1), unit2, unit2, str(kill_num2), unit1, unit1, str(num1 - kill_num2), unit2,
         str(num2 - kill_num1))
-    if num1 - kill_num2 <= 0 or num2 - kill_num1 <= 0 or round == 200:
+    if num1 - kill_num2 <= 0 or num2 - kill_num1 <= 0 or round == 25:
         return battlelog
 
     return battleSimulate(unit1, unit2, lv1, lv2, general1, general2, atkbuff1, atkbuff2, defbuff1, defbuff2,
