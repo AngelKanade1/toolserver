@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, render_template
 import func
 import json
 from collections import defaultdict
@@ -16,7 +16,6 @@ def hello_name():
 
 @app.route('/')
 def index():
-    file_path = 'updatelog.txt'
     client_ip = request.remote_addr
     today = datetime.date.today().strftime("%Y-%m-%d")
 
@@ -25,12 +24,15 @@ def index():
     else:
         access_counts[today] = {client_ip}
 
-    try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            content = file.read()
-        return render_template("index.html", content=content)
-    except Exception as e:
-        return str(e)
+    return render_template("index.html")
+
+
+@app.route('/updatelog')
+def display_txt():
+    with open('updatelog.txt', 'r', encoding='utf-8') as file:
+        txt_content = file.read()
+
+    return render_template('updatelog.html', content=txt_content)
 
 
 @app.route('/checktime')
