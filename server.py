@@ -3,6 +3,7 @@ import func
 import json
 from collections import defaultdict
 import datetime
+from gevent import pywsgi
 
 
 app = Flask(__name__)
@@ -199,4 +200,5 @@ if __name__ == '__main__':
         config = json.load(c)
         h = config["host"]
         p = config["port"]
-    app.run(host=h, port=p)
+    server = pywsgi.WSGIServer((h, int(p)), app)
+    server.serve_forever()
